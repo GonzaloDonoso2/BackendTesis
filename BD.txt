@@ -1,0 +1,69 @@
+CREATE TABLE Usuarios (
+    id INT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR (255) NOT NULL,
+    retrato VARCHAR (255) NOT NULL,
+    correoElectronico VARCHAR (255) NOT NULL,
+    contrasena VARCHAR (255) NOT NULL,
+    estado VARCHAR (255) NOT NULL,
+    PRIMARY KEY (id)    
+);
+
+CREATE TABLE Donaciones (
+    id INT AUTO_INCREMENT NOT NULL,
+    total INT NOT NULL,
+    periodo VARCHAR (255) NOT NULL,
+    idUsuario INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios (id)
+);
+
+CREATE TABLE Categorias (
+    id INT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR (255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Personajes (
+    id INT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR (255) NOT NULL,
+    retrato VARCHAR (255) NOT NULL,
+    color VARCHAR (255) NOT NULL,
+    alcance INT NOT NULL,
+    ataque INT NOT NULL,
+    dano INT NOT NULL,
+    defensa INT NOT NULL,
+    movimiento INT NOT NULL,
+    salud INT NOT NULL,
+    idCategoria INT NOT NULL,
+    idUsuario INT NOT NULL,
+    estado VARCHAR (255) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idCategoria) REFERENCES Categorias (id),
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios (id)
+);
+
+CREATE TABLE Batallas (
+	id INT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR (255) NOT NULL,
+    periodo VARCHAR (255) NOT NULL,
+    estado VARCHAR (255) NOT NULL,
+    PRIMARY KEY (id)    
+);
+
+CREATE TABLE BatallasUsuarios (
+	id INT AUTO_INCREMENT NOT NULL,
+    idBatalla INT NOT NULL,
+   	idUsuario INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idBatalla) REFERENCES Batallas (id),
+    FOREIGN KEY (idUsuario) REFERENCES Usuarios (id)
+);
+
+CREATE TABLE BatallasPersonajes (
+	id INT AUTO_INCREMENT NOT NULL,
+    idBatalla INT NOT NULL,
+   	idPersonaje INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idBatalla) REFERENCES Batallas (id),
+    FOREIGN KEY (idPersonaje) REFERENCES Personajes (id)
+);
